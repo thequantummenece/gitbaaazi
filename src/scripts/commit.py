@@ -1,9 +1,9 @@
 import hashlib
 import os
 
-def commit_state(directory, message):
+def commit_state(directory=None, message=None):
     commit_hash = hashlib.sha256()
-    commit_data = {"files":{}}
+    commit_data = {"files": {}}
 
     for root, dirs, files in os.walk(directory):
         for file in files:
