@@ -39,6 +39,8 @@ def commit_state(directory, message):
                         with open(file_path, 'rb') as source:
                             data = source.read()
                             pickle.dump(data, f)
+    
+    print(f"Committed changes to ref: {commit_hash}")
 
 def reflog():
     with open(os.path.join(os.pardir, ".commit_history"), 'rb') as f:
