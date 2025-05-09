@@ -13,7 +13,7 @@ def commit_state(directory, message):
     with open(os.path.join(os.pardir, ".commit_history"), "rb") as f:
         last_commit = json.loads(f.readlines()[-1]).keys()[0]
     
-    commit_data_path = f".githash/{last_commit}"
+    commit_data_path = os.path.join(os.pardir, ".githash", last_commit)
 
     for root, dirs, files in os.walk(directory):
         for file in files:
@@ -21,7 +21,7 @@ def commit_state(directory, message):
             if not os.path.exists(file_path):
                 raise Exception("File not found")
 
-            save_path = os.path.join(".githash", commit_hash, file_path)
+            save_path = os.path.join(os.pardir, ".githash", commit_hash, file_path)
             if not os.path.exists(os.path.join(commit_data_path, file_path)):
                 with open(save_path, 'wb') as f:
                     with open(file_path, 'rb') as source:
@@ -44,6 +44,9 @@ def commit_state(directory, message):
 
 def reflog():
     with open(os.path.join(os.pardir, ".commit_history"), 'rb') as f:
+        if not len(f.readlines()):
+            print("No commits found.")
         for i, line in enumerate(f.readlines()[::-1]):
             commit_hash, message = json.loads(line).items()[0]
             print(f"HEAD^{i}: {commit_hash} : {message} ")
+            
