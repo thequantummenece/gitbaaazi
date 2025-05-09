@@ -21,7 +21,7 @@ def commit_state(directory, message):
             if not os.path.exists(file_path):
                 raise Exception("File not found")
 
-            save_path = os.path.join(commit_data_path, commit_hash, file_path)
+            save_path = os.path.join(".githash", commit_hash, file_path)
             if not os.path.exists(os.path.join(commit_data_path, file_path)):
                 with open(save_path, 'wb') as f:
                     with open(file_path, 'rb') as source:
@@ -38,10 +38,10 @@ def commit_state(directory, message):
                     with open(save_path, 'wb') as f:
                         with open(file_path, 'rb') as source:
                             data = source.read()
-                            pickle.dump(data, f)    
+                            pickle.dump(data, f)
 
 def reflog():
     with open(os.path.join(os.pardir, ".commit_history"), 'rb') as f:
-        for i, line in enumerate(f.readlines()):
+        for i, line in enumerate(f.readlines()[::-1]):
             commit_hash, message = json.loads(line).items()[0]
             print(f"HEAD^{i}: {commit_hash} : {message} ")
