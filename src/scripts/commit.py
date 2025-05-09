@@ -8,7 +8,7 @@ def commit_state(directory, message):
     commit_data = {"files":{}}
 
     if not os.path.exists(os.path.join(os.pardir, ".commit_history")):
-        with open(os.path.join(os.pardir, ".commit_history"), 'w') as f:
+        with open(os.path.join(os.pardir, ".commit_history"), 'a') as f:
             f.write(json.dumps({commit_hash: message}))
     with open(os.path.join(os.pardir, ".commit_history"), "rb") as f:
         last_commit = json.loads(f.readlines()[-1]).keys()[0]
@@ -38,10 +38,7 @@ def commit_state(directory, message):
                     with open(save_path, 'wb') as f:
                         with open(file_path, 'rb') as source:
                             data = source.read()
-                            pickle.dump(data, f)
-                            
-    with open(os.path.join(os.pardir, ".commit_history"), "a") as f:
-        pass
+                            pickle.dump(data, f)    
 
 def reflog():
     with open(os.path.join(os.pardir, ".commit_history"), 'rb') as f:
