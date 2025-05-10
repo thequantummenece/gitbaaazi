@@ -10,10 +10,15 @@ def main():
         git.git_init()
     elif sys.argv[1] == 'commit':
         if len(sys.argv) > 2:
-            message = str(sys.argv[2])
+            if sys.argv[2] == 'list':
+                git.git_commit_list()
+            else:
+                message = str(sys.argv[2])
+                git.git_commit(message)
+
         else:
-            message = f"No message given at this Commit done on {datetime.now()}"
-        git.git_commit(message)
+            print('Not a valid git command Please Use commit "Some Message" or commit list')
+
 
 
 

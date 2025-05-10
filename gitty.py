@@ -1,5 +1,5 @@
 import os
-from src.scripts.commit import commit_state
+from src.scripts.commit import commit_state,reflog
 class gitty():
     def git_init(self):
         self.directory_path = '.githash'
@@ -19,7 +19,18 @@ class gitty():
 
     def git_commit(self,message):
         if self.__check_git():
-            commit_state(directory=self.directory_path,message=message)
+            try:
+                commit_state(directory=self.directory_path,message=message)
+                print(f"Successfully Committed with message: {message}")
+            except Exception as e:
+                print(f"Failed to commit as {e}")
+
+
+
+    def git_commit_list(self):
+        if self.__check_git():
+            reflog()
+
 
 
 
