@@ -3,7 +3,7 @@ import pickle
 import json
 import os
 
-def commit_state(directory, message):
+def commit_state(directory, message=None):
     commit_hash = hashlib.sha256()
     commit_data = {"files":{}}
 
@@ -30,10 +30,10 @@ def commit_state(directory, message):
             else:
                 with open(os.path.join(commit_data_path, file_path), 'rb') as existing_file:
                     existing_data = pickle.load(existing_file)
-                    
+
                 with open(file_path, 'rb') as current_file:
                     current_data = current_file.read()
-                
+
                 if existing_data != current_data:
                     with open(save_path, 'wb') as f:
                         with open(file_path, 'rb') as source:
