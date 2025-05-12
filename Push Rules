@@ -1,0 +1,9 @@
+Branch Protection Rule for: main
+
+- Require pull request reviews before merging: ENABLED
+- Required number of approvals: 1 (or more)
+- Require status checks to pass before merging: ENABLED (optional)
+- Require branches to be up to date before merging: ENABLED (optional)
+- Restrict who can push: ENABLED
+  - Authorized user(s): thequantummenece
+- Include administrators: ENABLED
